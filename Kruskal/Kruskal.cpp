@@ -3,8 +3,27 @@
 
 #include <iostream>
 using namespace std;
+struct povezava {
+    int p;
+    int q;
+    int cena;
+};
+void readGraph(int**& C) {
+
+}
+void generateRandomGraph(int**& C) {
+
+}
+void run() {
+
+}
+void outputAcceptedPaths()
+{
+
+}
 int main()
 {
+    int** C;
     bool enabled = true;
     int choice;
     while (enabled)
@@ -16,12 +35,16 @@ int main()
         switch (choice)
         {
         case 1:
+            readGraph(C);
             break;
         case 2:
+            generateRandomGraph(C);
             break;
         case 3:
+            run();
             break;
         case 4:
+            outputAcceptedPaths();
             break;
         case 5:
             enabled = false;
