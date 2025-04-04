@@ -47,6 +47,7 @@ void getPovezave(int** C, int stevilo_vozlisc, vector<povezava>& P) {
 }
 
 void run(vector<povezava>& P, int**& C, int stevilo_vozlisc) {
+    cout << "Izhodiscno stevilo povezav: " << P.size() << ", stevilo vozlisc: " << stevilo_vozlisc << "\n";
     vector<int> parent(stevilo_vozlisc);
     for (int i = 0; i < stevilo_vozlisc; ++i) {
         parent[i] = i;
@@ -81,11 +82,31 @@ void run(vector<povezava>& P, int**& C, int stevilo_vozlisc) {
         ++i;
     }
     P = R;
+    std::cout << "Stevilo sprejetih povezav: " << P.size();
 }
 
-void generateRandomGraph(int**& C) {
+void generateRandomGraph(int**& C, int& stevilo_vozlisc) {
+    cout << "Vnesite stevilo vozlišè (max 1500): ";
+    cin >> stevilo_vozlisc;
 
+    if (stevilo_vozlisc > 1500) {
+        cerr << "Napaka: Število vozlišè ne sme biti veèje od 1500!" << endl;
+        exit(1);
+    }
+    C = new int* [stevilo_vozlisc];
+    for (int i = 0; i < stevilo_vozlisc; i++) {
+        C[i] = new int[stevilo_vozlisc] {0};
+    }
+
+    for (int i = 0; i < stevilo_vozlisc; i++) {
+        for (int j = i + 1; j < stevilo_vozlisc; j++) {
+            int cena = 1;
+            C[i][j] = cena;
+            C[j][i] = cena;
+        }
+    }
 }
+
 
 void outputAcceptedPaths(const vector<povezava>& P) {
     int totalCost = 0;
@@ -117,7 +138,8 @@ int main()
             getPovezave(C,stevilo_vozlisc, P);
             break;
         case 2:
-            generateRandomGraph(C);
+            generateRandomGraph(C, stevilo_vozlisc);
+            getPovezave(C, stevilo_vozlisc, P);
             break;
         case 3:
             run(P, C, stevilo_vozlisc);
