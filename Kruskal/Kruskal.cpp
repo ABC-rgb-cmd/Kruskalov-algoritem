@@ -1,6 +1,6 @@
 // Kruskal.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
-
+#include <fstream>
 #include <iostream>
 using namespace std;
 struct povezava {
@@ -8,8 +8,16 @@ struct povezava {
     int q;
     int cena;
 };
-void readGraph(int**& C) {
+void readGraph(int**& C, int& stevilo_vozlisc) {
+    ifstream f("graf.txt"); 
+    int stevilo_povezav;
+    f >> stevilo_vozlisc;  // v prvi vrstici datoteke imamo stevilo vozlisc
+    f >> stevilo_povezav;  // v drugi vrstici datoteke imamo stevilo povezav oziroma vrstic v nadaljevnaju datoteke
 
+    C = new int* [stevilo_vozlisc];
+    for (int i = 0; i < stevilo_vozlisc; i++) {
+        C[i] = new int[stevilo_vozlisc] {0};
+    }
 }
 void generateRandomGraph(int**& C) {
 
@@ -24,6 +32,7 @@ void outputAcceptedPaths()
 int main()
 {
     int** C;
+    int stevilo_vozlisc;
     bool enabled = true;
     int choice;
     while (enabled)
@@ -35,7 +44,7 @@ int main()
         switch (choice)
         {
         case 1:
-            readGraph(C);
+            readGraph(C, stevilo_vozlisc);
             break;
         case 2:
             generateRandomGraph(C);
