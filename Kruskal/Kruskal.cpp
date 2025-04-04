@@ -2,6 +2,9 @@
 //
 #include <fstream>
 #include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
 using namespace std;
 struct povezava {
     int p;
@@ -18,16 +21,30 @@ void readGraph(int**& C, int& stevilo_vozlisc) {
     for (int i = 0; i < stevilo_vozlisc; i++) {
         C[i] = new int[stevilo_vozlisc] {0};
     }
-}
-void generateRandomGraph(int**& C) {
 
+    int v1, v2, cena;
+    for (int i = 0; i < stevilo_povezav; i++) {
+        f >> v1 >> v2 >> cena;
+        if (v1 < 1 || v1 > stevilo_vozlisc || v2 < 1 || v2 > stevilo_vozlisc) {
+            cerr << "Napaka: Indeksi vozlišè (" << v1 << ", " << v2 << ") so izven dovoljenega obsega!" << endl;
+            exit(1);
+        }
+        v1--;
+        v2--;
+
+        C[v1][v2] = cena;
+    }
 }
+
 void run() {
 
 }
-void outputAcceptedPaths()
-{
 
+void generateRandomGraph(int**& C) {
+
+}
+
+void outputAcceptedPaths() {
 }
 int main()
 {
