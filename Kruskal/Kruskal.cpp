@@ -93,6 +93,7 @@ void generateRandomGraph(int**& C, int& stevilo_vozlisc) {
         cerr << "Napaka: Število vozlišè ne sme biti veèje od 1500!" << endl;
         exit(1);
     }
+    srand(time(0));
     C = new int* [stevilo_vozlisc];
     for (int i = 0; i < stevilo_vozlisc; i++) {
         C[i] = new int[stevilo_vozlisc] {0};
@@ -100,7 +101,7 @@ void generateRandomGraph(int**& C, int& stevilo_vozlisc) {
 
     for (int i = 0; i < stevilo_vozlisc; i++) {
         for (int j = i + 1; j < stevilo_vozlisc; j++) {
-            int cena = 1;
+            int cena = rand() % 100 + 1;
             C[i][j] = cena;
             C[j][i] = cena;
         }
