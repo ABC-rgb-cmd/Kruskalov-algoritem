@@ -87,7 +87,15 @@ void generateRandomGraph(int**& C) {
 
 }
 
-void outputAcceptedPaths() {
+void outputAcceptedPaths(const vector<povezava>& P) {
+    int totalCost = 0;
+
+    for (const auto& edge : P) {
+        cout << "p: " << edge.p << ", q: " << edge.q << ", cena: " << edge.cena << "\n";
+        totalCost += edge.cena;
+    }
+
+    cout << "Skupna minimalna cena: " << totalCost << endl;
 }
 int main()
 {
@@ -115,7 +123,7 @@ int main()
             run(P, C, stevilo_vozlisc);
             break;
         case 4:
-            outputAcceptedPaths();
+            outputAcceptedPaths(P);
             break;
         case 5:
             enabled = false;
