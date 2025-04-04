@@ -48,6 +48,7 @@ void getPovezave(int** C, int stevilo_vozlisc, vector<povezava> P) {
 }
 
 void run() {
+
 }
 
 void generateRandomGraph(int**& C) {
@@ -73,7 +74,7 @@ int main()
         {
         case 1:
             readGraph(C, stevilo_vozlisc);
-            getPovezave(C, stevilo_vozlisc, P);
+            getPovezave(C,stevilo_vozlisc, P);
             break;
         case 2:
             generateRandomGraph(C);
