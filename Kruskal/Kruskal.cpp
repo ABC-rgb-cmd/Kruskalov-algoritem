@@ -33,11 +33,21 @@ void readGraph(int**& C, int& stevilo_vozlisc) {
         v2--;
 
         C[v1][v2] = cena;
+        C[v2][v1] = cena;
+    }
+}
+
+void getPovezave(int** C, int stevilo_vozlisc, vector<povezava> P) {
+    for (int i = 0; i < stevilo_vozlisc; i++) {
+        for (int j = i + 1; j < stevilo_vozlisc; j++) {
+            if (C[i][j] > 0) {
+                P.push_back({ i, j, C[i][j] });
+            }
+        }
     }
 }
 
 void run() {
-
 }
 
 void generateRandomGraph(int**& C) {
@@ -52,6 +62,7 @@ int main()
     int stevilo_vozlisc;
     bool enabled = true;
     int choice;
+    vector<povezava> P;
     while (enabled)
     {
         cout << "\nIskanje v Globino - Izbira \n1 Preberi graf iz datoteke\n2 Generiraj nakljucni graf\n"
@@ -62,6 +73,7 @@ int main()
         {
         case 1:
             readGraph(C, stevilo_vozlisc);
+            getPovezave(C, stevilo_vozlisc, P);
             break;
         case 2:
             generateRandomGraph(C);
