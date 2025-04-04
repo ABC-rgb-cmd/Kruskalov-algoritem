@@ -33,11 +33,10 @@ void readGraph(int**& C, int& stevilo_vozlisc) {
         v2--;
 
         C[v1][v2] = cena;
-        C[v2][v1] = cena;
     }
 }
 
-void getPovezave(int** C, int stevilo_vozlisc, vector<povezava> P) {
+void getPovezave(int** C, int stevilo_vozlisc, vector<povezava>& P) {
     for (int i = 0; i < stevilo_vozlisc; i++) {
         for (int j = i + 1; j < stevilo_vozlisc; j++) {
             if (C[i][j] > 0) {
@@ -47,8 +46,41 @@ void getPovezave(int** C, int stevilo_vozlisc, vector<povezava> P) {
     }
 }
 
-void run() {
+void run(vector<povezava>& P, int**& C, int stevilo_vozlisc) {
+    vector<int> parent(stevilo_vozlisc);
+    for (int i = 0; i < stevilo_vozlisc; ++i) {
+        parent[i] = i;
+    }
 
+    std::sort(P.begin(), P.end(), [](const povezava& a, const povezava& b) {
+        return a.cena < b.cena;
+        });
+
+    vector<povezava> R;
+    int i = 0;
+    int j = 0;
+
+    while (j < stevilo_vozlisc - 1) {
+        int u = P[i].p;
+        int v = P[i].q;
+
+        while (parent[u] != u) {
+            u = parent[u];
+        }
+
+        while (parent[v] != v) {
+            v = parent[v];
+        }
+
+        if (u != v) {
+            R.push_back(P[i]);
+            parent[v] = u;
+            ++j;
+        }
+
+        ++i;
+    }
+    P = R;
 }
 
 void generateRandomGraph(int**& C) {
@@ -80,7 +112,7 @@ int main()
             generateRandomGraph(C);
             break;
         case 3:
-            run();
+            run(P, C, stevilo_vozlisc);
             break;
         case 4:
             outputAcceptedPaths();
